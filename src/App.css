@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+    --primary-purple: #6403df;
+    --secondary-purple: #6114c5;
+    --secondary-blue: #e8f0fe;
+}
+
+@layer base {
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+}
