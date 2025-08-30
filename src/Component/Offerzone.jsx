@@ -1,6 +1,6 @@
 import Slider from "react-slick";
 import {useEffect, useState} from 'react';
-import axios from 'axios';
+import { client } from "../api";      // or "../../api" based on folder depth
 // import offer1 from "/Images/model1.png";
 // import offer2 from "/Images/model3.png";
 
@@ -9,9 +9,9 @@ export default function OfferZone() {
   const [banners, setBanners] = useState([]);
   useEffect(() => {
     (async () => {
-      console.log(`${import.meta.env.VITE_LOCAL_URL}/banner`);
+      console.log(`${import.meta.env.VITE_API_URL}/banner`);
       try{
-        const response = await axios.get(`${import.meta.env.VITE_LOCAL_URL}/banner`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/banner`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

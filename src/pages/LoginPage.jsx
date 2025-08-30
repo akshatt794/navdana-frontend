@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import { loginUser, setAuthToken } from "../api";
 import { setAuthToken } from "../api";
-import axios from "axios";
-
+import { client } from "../api";          // from src/Component/*.jsx and src/pages/*.jsx
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -16,7 +15,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_LOCAL_URL}/login`, 
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, 
           {username:formData.email, password:formData.password}
       );
 

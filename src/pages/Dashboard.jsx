@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { client } from "../api";
 // import API from '../api'; // Make sure this is the correct path to your API instance
 
 // Category API (create)
@@ -320,20 +320,20 @@ function CategoryModal({ open, onClose, onSave, initialData }) {
       if (initialData && initialData._id) {
         // Edit
         if (imageFile) {
-          await axios.put(`${import.meta.env.VITE_LOCAL_URL}/categories/${initialData._id}`, payload, {
+          await axios.put(`${import.meta.env.VITE_API_URL}/categories/${initialData._id}`, payload, {
             headers: { ...(imageFile ? {} : { 'Content-Type': 'application/json' }) }
           });
         } else {
-          await axios.put(`${import.meta.env.VITE_LOCAL_URL}/categories/${initialData._id}`, payload, {
+          await axios.put(`${import.meta.env.VITE_API_URL}/categories/${initialData._id}`, payload, {
             headers: { 'Content-Type': 'application/json' }
           });
         }
       } else {
         // Add
         if (imageFile) {
-          await axios.post(`${import.meta.env.VITE_LOCAL_URL}/categories`,payload);
+          await axios.post(`${import.meta.env.VITE_API_URL}/categories`,payload);
         } else {
-          await axios.post(`${import.meta.env.VITE_LOCAL_URL}/categories`,payload);
+          await axios.post(`${import.meta.env.VITE_API_URL}/categories`,payload);
         }
       }
       onSave();
@@ -544,9 +544,9 @@ function ProductModal({ open, onClose, onSave, initialData, categories }) {
       } else {
         // Add
         if (imageFiles.length > 0) {
-          await axios.post(`${import.meta.env.VITE_LOCAL_URL}/products`, payload);
+          await axios.post(`${import.meta.env.VITE_API_URL}/products`, payload);
         } else {
-          await axios.post(`${import.meta.env.VITE_LOCAL_URL}/products`, payload, {
+          await axios.post(`${import.meta.env.VITE_API_URL}/products`, payload, {
             headers: { 'Content-Type': 'application/json' }
           });
         }
@@ -840,7 +840,7 @@ function CategoriesContent() {
 
   const fetchCategories = () => {
     setLoading(true);
-    axios.get(`${import.meta.env.VITE_LOCAL_URL}/categories`)
+    axios.get(`${import.meta.env.VITE_API_URL}/categories`)
       .then(res => {
         console.log(res);
         setCategories(res.data.data || []);
@@ -866,7 +866,7 @@ function CategoriesContent() {
   const handleDelete = async (cat) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        await axios.delete(`${import.meta.env.VITE_LOCAL_URL}/categories/${cat._id || cat.id}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/categories/${cat._id || cat.id}`);
         fetchCategories();
       } catch (err) {
         alert("Error deleting category: " + (err?.response?.data?.message || err.message));
@@ -941,7 +941,7 @@ function ProductsContent() {
 
   const fetchProducts = async () => {
     setLoading(true);
-    await axios(`${import.meta.env.VITE_LOCAL_URL}/products`)
+    await axios(`${import.meta.env.VITE_API_URL}/products`)
       .then(res => {
         setProducts(res.data.data || []);
         setLoading(false);
@@ -950,7 +950,7 @@ function ProductsContent() {
   };
 
   const fetchCategories = async () => {
-    await axios.get(`${import.meta.env.VITE_LOCAL_URL}/categories`)
+    await axios.get(`${import.meta.env.VITE_API_URL}/categories`)
       .then(res => setCategories(res.data.data || []))
       .catch(() => {});
   };
@@ -974,7 +974,7 @@ function ProductsContent() {
   const handleDelete = async (product) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        await axios.delete(`${import.meta.env.VITE_LOCAL_URL}/products/${product._id || product.id}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product._id || product.id}`);
         fetchProducts();
       } catch (err) {
         alert("Error deleting product: " + (err?.response?.data?.message || err.message));

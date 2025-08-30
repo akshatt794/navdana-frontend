@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import API from '../api'; // Make sure this is the correct path to your API instance
+import { client } from "../api";
 
 // Category API (create)
 const createCategory = (data) => API.post("/api/v1/category", data);

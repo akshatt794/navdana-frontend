@@ -6,7 +6,7 @@
 // import Maroon from "/Images/Maroon.jpg";
 // import PinkBlue from "/Images/pink-blue.jpg";
 import {useEffect, useState} from 'react';
-import axios from 'axios';
+import { client } from "../api";      // or "../../api" based on folder depth
 
 export default function Collection() {
   // const collections = [
@@ -25,9 +25,9 @@ export default function Collection() {
 
   useEffect(() => {
     (async () => {
-      console.log(`${import.meta.env.VITE_LOCAL_URL}/banner`);
+      console.log(`${import.meta.env.VITE_API_URL}/banner`);
       try{
-        const response = await axios.get(`${import.meta.env.VITE_LOCAL_URL}/categories`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
